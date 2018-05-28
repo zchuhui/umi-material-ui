@@ -1,0 +1,1 @@
+webpackJsonp([0],{"04qB":function(e,n,t){"use strict";Object.defineProperty(n,"__esModule",{value:!0});var u=t("VzHg"),a=t.n(u),r=a.a.createElement("div",null,"Index Page");n.default=function(){return r}}});
