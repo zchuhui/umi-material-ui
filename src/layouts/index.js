@@ -15,7 +15,7 @@ import Menu from '@material-ui/core/Menu';
 
 import styles from './index.less'
 
-import MenuPage from './Menu'
+import MenuPage from './Menu' 
 
 import { createMuiTheme } from '@material-ui/core/styles';
 
