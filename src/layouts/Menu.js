@@ -23,9 +23,8 @@ const styles = theme => ({
   root: {
     width: '100%',
     maxWidth: 360,
-    height:'100%',
+    height:'100%', 
     backgroundColor: theme.palette.background.paper,
-    borderRight:'1px solid #ddd'
   },
   nested: {
     paddingLeft: theme.spacing.unit * 4,
@@ -43,9 +42,13 @@ const styles = theme => ({
   logo:{
     float:'left',
     marginTop: 8,
-    marginLeft: 30,
+    marginLeft: 10,
     marginRight:10,
     fontSize:30
+  },
+  icon:{
+    fontSize:20,
+    color:'#999'
   }
 });
 
@@ -68,15 +71,15 @@ class NestedList extends React.Component {
         >
           <Link to="/" className={classes.link}>
             <ListItem button>
-              <ListItemIcon>
+              <ListItemIcon className={classes.icon}>
                 <HomeIcon />
               </ListItemIcon>
-              <ListItemText inset primary="home" />
+              <ListItemText inset primary="Home" />
             </ListItem>
           </Link>
           <Link to="/page1" className={classes.link}>
             <ListItem button>
-              <ListItemIcon>
+              <ListItemIcon className={classes.icon}>
                 <SendIcon />
               </ListItemIcon>
               <ListItemText inset primary="Page1" />
@@ -84,14 +87,14 @@ class NestedList extends React.Component {
           </Link>
           <Link to="/page2" className={classes.link}>
             <ListItem button>
-              <ListItemIcon>
+              <ListItemIcon className={classes.icon}>
                 <DraftsIcon />
               </ListItemIcon>
               <ListItemText inset primary="Page2" />
             </ListItem>
           </Link>
           <ListItem button onClick={this.handleClick}>
-            <ListItemIcon>
+            <ListItemIcon className={classes.icon}>
               <InboxIcon />
             </ListItemIcon>
             <ListItemText inset primary="Inbox" />
@@ -101,7 +104,7 @@ class NestedList extends React.Component {
             <List component="div" disablePadding>
               <Link to="/404" className={classes.link}>
                 <ListItem button className={classes.nested}>
-                  <ListItemIcon>
+                  <ListItemIcon className={classes.icon}>
                     <StarBorder />
                   </ListItemIcon>
                   <ListItemText inset primary="404" />

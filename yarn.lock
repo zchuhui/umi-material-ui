@@ -364,6 +364,10 @@ react-popper@^0.10.0:
     popper.js "^1.14.1"
     prop-types "^15.6.1"
 
+react-sidebar@^2.3.2:
+  version "2.3.2"
+  resolved "http://registry.npm.taobao.org/react-sidebar/download/react-sidebar-2.3.2.tgz#ec140bea8a6f5fa3d8ea7a56479665b44cf4f9cf"
+
 react-transition-group@^2.2.1:
   version "2.3.1"
   resolved "http://registry.npm.taobao.org/react-transition-group/download/react-transition-group-2.3.1.tgz#31d611b33e143a5e0f2d94c348e026a0f3b474b6"

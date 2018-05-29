@@ -5,7 +5,8 @@
   "main": "index.js",
   "dependencies": {
     "@material-ui/core": "^1.1.0",
-    "@material-ui/icons": "^1.1.0"
+    "@material-ui/icons": "^1.1.0",
+    "react-sidebar": "^2.3.2"
   },
   "devDependencies": {},
   "scripts": {
