@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { IntlProvider } from 'react-intl';
 
 import Sidebar from 'react-sidebar';
 import Grid from '@material-ui/core/Grid';
@@ -12,13 +13,17 @@ import MenuIcon from '@material-ui/icons/Menu';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import Translate from '@material-ui/icons/Translate';
 import Switch from '@material-ui/core/Switch';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import Input from '@material-ui/core/Input';
-
 import styles from './index.less'
 import MenuPage from './Menu'
+
+import zh_CN from '../locales/zh_CN'
+import en_US from '../locales/en_US'
+
 
 // root styles
 const style = (theme) => ({
@@ -30,9 +35,9 @@ const style = (theme) => ({
     textAlign: 'center',
     color: theme.palette.text.secondary,
   },
-  input:{
+  input: {
     margin: theme.spacing.unit,
-    color:'red',
+    color: 'red',
   }
 });
 
@@ -60,13 +65,16 @@ class Layout extends React.Component {
     super(props);
 
     this.state = {
+      // 账号信息
       auth: true,
       anchorEl: null,
-
+      // 菜单切换
       mql: mql,
       sidebarDocked: props.docked,
       open: props.open,
       sidebarTransitions: false,
+      // 语言切换
+      translate: 'en',
     }
 
     this.mediaQueryChanged = this.mediaQueryChanged.bind(this);
@@ -90,80 +98,89 @@ class Layout extends React.Component {
 
     const { auth, anchorEl } = this.state;
     const open = Boolean(anchorEl);
-    
 
     return (
       <div className={style.root}>
-        <Sidebar
-          sidebar={<MenuPage />}
-          open={this.state.sidebarOpen}
-          docked={this.state.sidebarDocked}
-          onSetOpen={this.handleSetSidebarOpen}
-          transitions={this.state.sidebarTransitions}
-          styles={sidebarStyles}
+        <IntlProvider
+          locale={'en'}
+          messages={this.state.translate == 'en' ? en_US : zh_CN}
         >
+          <Sidebar
+            sidebar={<MenuPage />}
+            open={this.state.sidebarOpen}
+            docked={this.state.sidebarDocked}
+            onSetOpen={this.handleSetSidebarOpen}
+            transitions={this.state.sidebarTransitions}
+            styles={sidebarStyles}
+          >
+            <div className={styles.layoutContainer}>
 
-          <div className={styles.layoutContainer}>
+              {/* Header */}
+              <header className={styles.header}>
+                <AppBar position="static" color='primary'>
+                  <Toolbar>
+                    <IconButton color="inherit" aria-label="Menu" onClick={this.handleSetSidebarOpen.bind(this)}>
+                      <MenuIcon />
+                    </IconButton>
+                    <Typography variant="title" color="inherit" style={{ flex: 1 }}>Title</Typography>
 
-            {/* Header */}
-            <header className={styles.header}>
-              <AppBar position="static" color='primary'>
-                <Toolbar>
-                  <IconButton color="inherit" aria-label="Menu" onClick={this.handleSetSidebarOpen.bind(this)}>
-                    <MenuIcon />
-                  </IconButton>
-                  <Typography variant="title" color="inherit" style={{ flex: 1 }}>Title</Typography>
-                  {/* <Input
-                    className={styles.inputSearch}
-                    placeholder="Search"
-                    inputProps={{
-                      'aria-label': 'Description',
-                    }}
-                  /> */}
-                  {auth && (
                     <div>
                       <IconButton
-                        aria-owns={open ? 'menu-appbar' : null}
+                        aria-owns={null}
                         aria-haspopup="true"
-                        onClick={this.handleMenu}
                         color="inherit"
+                        onClick={this.handleTranslate}
                       >
-                        <AccountCircle />
+                        <Translate />
                       </IconButton>
-                      <Menu
-                        id="menu-appbar"
-                        anchorEl={anchorEl}
-                        anchorOrigin={{
-                          vertical: 'top',
-                          horizontal: 'right',
-                        }}
-                        transformOrigin={{
-                          vertical: 'top',
-                          horizontal: 'right',
-                        }}
-                        open={open}
-                        onClose={this.handleClose}
-                      >
-                        <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-                        <MenuItem onClick={this.handleClose}>My account</MenuItem>
-                      </Menu>
                     </div>
-                  )}
 
-                </Toolbar>
-              </AppBar>
-            </header>
+                    {auth && (
+                      <div>
+                        <IconButton
+                          aria-owns={open ? 'menu-appbar' : null}
+                          aria-haspopup="true"
+                          onClick={this.handleMenu}
+                          color="inherit"
+                        >
+                          <AccountCircle />
+                        </IconButton>
+                        <Menu
+                          id="menu-appbar"
+                          anchorEl={anchorEl}
+                          anchorOrigin={{
+                            vertical: 'top',
+                            horizontal: 'right',
+                          }}
+                          transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'right',
+                          }}
+                          open={open}
+                          onClose={this.handleClose}
+                        >
+                          <MenuItem onClick={this.handleClose}>Profile</MenuItem>
+                          <MenuItem onClick={this.handleClose}>My account</MenuItem>
+                        </Menu>
+                      </div>
+                    )}
 
-            {/* Content */}
-            <div className={styles.main}>
-              {
-                this.props.children
-              }
+                  </Toolbar>
+                </AppBar>
+              </header>
+
+              {/* Content */}
+              <div className={styles.main}>
+
+                {
+                  this.props.children
+                }
+              </div>
+
             </div>
+          </Sidebar>
 
-          </div>
-        </Sidebar>
-
+        </IntlProvider>
       </div>
     );
   }
@@ -172,13 +189,13 @@ class Layout extends React.Component {
   // slider open/hide
   handleSetSidebarOpen = (open) => {
     const isMatch = this.state.mql.matches;
-    
+
     if (!isMatch) {
-      this.setState({ 
+      this.setState({
         sidebarTransitions: true,
-        sidebarOpen: open==false?false:true 
+        sidebarOpen: open == false ? false : true
       });
-    }else{
+    } else {
       const docked = this.state.sidebarDocked;
       this.setState({
         sidebarTransitions: true,
@@ -198,6 +215,15 @@ class Layout extends React.Component {
   handleClose = () => {
     this.setState({ anchorEl: null });
   };
+
+  handleTranslate = () => {
+    if (this.state.translate !== 'en') {
+      this.setState({ translate: 'en' })
+    } else {
+      this.setState({ translate: 'zh' })
+    }
+
+  }
 }
 
 export default withStyles(style)(Layout);

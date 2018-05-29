@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Link from 'umi/link';
+import { FormattedMessage } from 'react-intl';
 
 import { withStyles } from '@material-ui/core/styles';
 import ListSubheader from '@material-ui/core/ListSubheader';
@@ -23,32 +24,32 @@ const styles = theme => ({
   root: {
     width: '100%',
     maxWidth: 360,
-    height:'100%', 
+    height: '100%',
     backgroundColor: theme.palette.background.paper,
   },
   nested: {
     paddingLeft: theme.spacing.unit * 4,
   },
-  link:{
-    textDecoration: 'none !important', 
+  link: {
+    textDecoration: 'none !important',
   },
   title: {
     height: 64,
-    fontSize:22,
-    borderBottom:'1px solid #DDD',
-    color:'#333',
-    padding:'10px'
+    fontSize: 22,
+    borderBottom: '1px solid #DDD',
+    color: '#333',
+    padding: '10px'
   },
-  logo:{
-    float:'left',
+  logo: {
+    float: 'left',
     marginTop: 8,
     marginLeft: 10,
-    marginRight:10,
-    fontSize:30
+    marginRight: 10,
+    fontSize: 30
   },
-  icon:{
-    fontSize:20,
-    color:'#999'
+  icon: {
+    fontSize: 20,
+    color: '#999'
   }
 });
 
@@ -66,7 +67,7 @@ class NestedList extends React.Component {
       <div className={classes.root}>
         <List
           component="nav"
-          subheader={<ListSubheader component="div" className={classes.title}> <ViewModuleIcon className={classes.logo}/> Material UI</ListSubheader>}
+          subheader={<ListSubheader component="div" className={classes.title}> <ViewModuleIcon className={classes.logo} /> Material UI</ListSubheader>}
           className={classes.link}
         >
           <Link to="/" className={classes.link}>
@@ -74,7 +75,14 @@ class NestedList extends React.Component {
               <ListItemIcon className={classes.icon}>
                 <HomeIcon />
               </ListItemIcon>
-              <ListItemText inset primary="Home" />
+              <ListItemText inset
+                primary={
+                  <FormattedMessage
+                    id='menus.home'
+                    defaultMessage='home'
+                  />
+                }
+              />
             </ListItem>
           </Link>
           <Link to="/page1" className={classes.link}>
@@ -82,7 +90,14 @@ class NestedList extends React.Component {
               <ListItemIcon className={classes.icon}>
                 <SendIcon />
               </ListItemIcon>
-              <ListItemText inset primary="Page1" />
+              <ListItemText inset
+                primary={
+                  <FormattedMessage
+                    id='menus.page1'
+                    defaultMessage='Page1'
+                  />
+                }
+              />
             </ListItem>
           </Link>
           <Link to="/page2" className={classes.link}>
@@ -90,14 +105,28 @@ class NestedList extends React.Component {
               <ListItemIcon className={classes.icon}>
                 <DraftsIcon />
               </ListItemIcon>
-              <ListItemText inset primary="Page2" />
+              <ListItemText inset
+                primary={
+                  <FormattedMessage
+                    id='menus.page2'
+                    defaultMessage='Page2'
+                  />
+                }
+              />
             </ListItem>
           </Link>
           <ListItem button onClick={this.handleClick}>
             <ListItemIcon className={classes.icon}>
               <InboxIcon />
             </ListItemIcon>
-            <ListItemText inset primary="Inbox" />
+            <ListItemText inset
+              primary={
+                <FormattedMessage
+                  id='menus.inbox'
+                  defaultMessage='InBox'
+                />
+              }
+            />
             {this.state.open ? <ExpandLess /> : <ExpandMore />}
           </ListItem>
           <Collapse in={this.state.open} timeout="auto" unmountOnExit>
