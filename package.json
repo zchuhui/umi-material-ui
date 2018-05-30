@@ -8,6 +8,7 @@
     "@material-ui/icons": "^1.1.0",
     "intl": "^1.2.5",
     "react-intl": "^2.4.0",
+    "react-intl-universal": "^1.11.2",
     "react-sidebar": "^2.3.2"
   },
   "devDependencies": {},

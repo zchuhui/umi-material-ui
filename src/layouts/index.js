@@ -3,21 +3,16 @@ import PropTypes from 'prop-types';
 import { IntlProvider } from 'react-intl';
 
 import Sidebar from 'react-sidebar';
-import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormGroup from '@material-ui/core/FormGroup';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import Translate from '@material-ui/icons/Translate';
-import Switch from '@material-ui/core/Switch';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import Input from '@material-ui/core/Input';
 import styles from './index.less'
 import MenuPage from './Menu'
 
@@ -103,7 +98,7 @@ class Layout extends React.Component {
       <div className={style.root}>
         <IntlProvider
           locale={'en'}
-          messages={this.state.translate == 'en' ? en_US : zh_CN}
+          messages={this.state.translate === 'en' ? en_US : zh_CN}
         >
           <Sidebar
             sidebar={<MenuPage />}
@@ -193,7 +188,7 @@ class Layout extends React.Component {
     if (!isMatch) {
       this.setState({
         sidebarTransitions: true,
-        sidebarOpen: open == false ? false : true
+        sidebarOpen: open === false ? false : true
       });
     } else {
       const docked = this.state.sidebarDocked;
@@ -225,5 +220,9 @@ class Layout extends React.Component {
 
   }
 }
+
+Layout.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
 
 export default withStyles(style)(Layout);
