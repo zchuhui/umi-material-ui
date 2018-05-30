@@ -1,23 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { IntlProvider } from 'react-intl';
-
 import Sidebar from 'react-sidebar';
 import { withStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import Translate from '@material-ui/icons/Translate';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import indigo from '@material-ui/core/colors/indigo';
+import deepPurple from '@material-ui/core/colors/deepPurple';
+
 import styles from './index.less'
 import MenuPage from './Menu'
-
+import Header from './Header'
+ 
 import zh_CN from '../locales/zh_CN'
 import en_US from '../locales/en_US'
+
+const theme = createMuiTheme({
+  palette: {
+    primary: { main: indigo[500] }, // Purple and green play nicely together.
+    secondary: { main: deepPurple[500]  }, // This is just green.A700 as hex.
+  },
+});
 
 
 // root styles
@@ -54,15 +56,11 @@ const sidebarStyles = {
 // 判断窗口是否大于800px
 const mql = window.matchMedia(`(min-width: 800px)`);
 
-
 class Layout extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      // 账号信息
-      auth: true,
-      anchorEl: null,
       // 菜单切换
       mql: mql,
       sidebarDocked: props.docked,
@@ -75,7 +73,6 @@ class Layout extends React.Component {
     this.mediaQueryChanged = this.mediaQueryChanged.bind(this);
   }
 
-
   componentWillMount() {
     mql.addListener(this.mediaQueryChanged);
     this.setState({ mql: mql, sidebarDocked: mql.matches });
@@ -85,98 +82,50 @@ class Layout extends React.Component {
     this.state.mql.removeListener(this.mediaQueryChanged);
   }
 
+  // 菜单自适应检测
   mediaQueryChanged() {
     this.setState({ sidebarDocked: this.state.mql.matches });
   }
 
   render() {
 
-    const { auth, anchorEl } = this.state;
-    const open = Boolean(anchorEl);
-
     return (
-      <div className={style.root}>
-        <IntlProvider
-          locale={'en'}
-          messages={this.state.translate === 'en' ? en_US : zh_CN}
-        >
-          <Sidebar
-            sidebar={<MenuPage />}
-            open={this.state.sidebarOpen}
-            docked={this.state.sidebarDocked}
-            onSetOpen={this.handleSetSidebarOpen}
-            transitions={this.state.sidebarTransitions}
-            styles={sidebarStyles}
+      <MuiThemeProvider theme={theme}>
+        <div className={style.root}>
+          <IntlProvider
+            locale={'en'}
+            messages={this.state.translate === 'en' ? en_US : zh_CN}
           >
-            <div className={styles.layoutContainer}>
+            <Sidebar
+              sidebar={<MenuPage />}
+              open={this.state.sidebarOpen}
+              docked={this.state.sidebarDocked}
+              onSetOpen={this.handleSetSidebarOpen}
+              transitions={this.state.sidebarTransitions}
+              styles={sidebarStyles}
+            >
+              <div className={styles.layoutContainer}>
 
-              {/* Header */}
-              <header className={styles.header}>
-                <AppBar position="static" color='primary'>
-                  <Toolbar>
-                    <IconButton color="inherit" aria-label="Menu" onClick={this.handleSetSidebarOpen.bind(this)}>
-                      <MenuIcon />
-                    </IconButton>
-                    <Typography variant="title" color="inherit" style={{ flex: 1 }}>Title</Typography>
+                {/* Header */}
+                <Header
+                  title="Title"
+                  handleSetSidebarOpen={this.handleSetSidebarOpen.bind(this)}
+                  handleTranslate={this.handleTranslate}
+                />
 
-                    <div>
-                      <IconButton
-                        aria-owns={null}
-                        aria-haspopup="true"
-                        color="inherit"
-                        onClick={this.handleTranslate}
-                      >
-                        <Translate />
-                      </IconButton>
-                    </div>
+                {/* Content */}
+                <div className={styles.main}>
+                  {
+                    this.props.children
+                  }
+                </div>
 
-                    {auth && (
-                      <div>
-                        <IconButton
-                          aria-owns={open ? 'menu-appbar' : null}
-                          aria-haspopup="true"
-                          onClick={this.handleMenu}
-                          color="inherit"
-                        >
-                          <AccountCircle />
-                        </IconButton>
-                        <Menu
-                          id="menu-appbar"
-                          anchorEl={anchorEl}
-                          anchorOrigin={{
-                            vertical: 'top',
-                            horizontal: 'right',
-                          }}
-                          transformOrigin={{
-                            vertical: 'top',
-                            horizontal: 'right',
-                          }}
-                          open={open}
-                          onClose={this.handleClose}
-                        >
-                          <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-                          <MenuItem onClick={this.handleClose}>My account</MenuItem>
-                        </Menu>
-                      </div>
-                    )}
-
-                  </Toolbar>
-                </AppBar>
-              </header>
-
-              {/* Content */}
-              <div className={styles.main}>
-
-                {
-                  this.props.children
-                }
               </div>
+            </Sidebar>
 
-            </div>
-          </Sidebar>
-
-        </IntlProvider>
-      </div>
+          </IntlProvider>
+        </div>
+      </MuiThemeProvider>
     );
   }
 
@@ -199,18 +148,7 @@ class Layout extends React.Component {
     }
   }
 
-  handleChange = (event, checked) => {
-    this.setState({ auth: checked });
-  };
-
-  handleMenu = event => {
-    this.setState({ anchorEl: event.currentTarget });
-  };
-
-  handleClose = () => {
-    this.setState({ anchorEl: null });
-  };
-
+  // switch languzage
   handleTranslate = () => {
     if (this.state.translate !== 'en') {
       this.setState({ translate: 'en' })
@@ -220,6 +158,7 @@ class Layout extends React.Component {
 
   }
 }
+
 
 Layout.propTypes = {
   classes: PropTypes.object.isRequired,

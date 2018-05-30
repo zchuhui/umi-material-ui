@@ -20,6 +20,16 @@ import StarBorder from '@material-ui/icons/StarBorder';
 import HomeIcon from '@material-ui/icons/Home';
 import ViewModuleIcon from '@material-ui/icons/ViewModule';
 
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import blue from '@material-ui/core/colors/blue';
+
+const theme = createMuiTheme({
+  palette: {
+    primary: { main: blue[500] }, // Purple and green play nicely together.
+    secondary: { main: '#11cb5f' }, // This is just green.A700 as hex.
+  },
+});
+
 const styles = theme => ({
   root: {
     width: '100%',
@@ -64,85 +74,93 @@ class NestedList extends React.Component {
     const { classes } = this.props;
 
     return (
+
       <div className={classes.root}>
-        <List
-          component="nav"
-          subheader={<ListSubheader component="div" className={classes.title}> <ViewModuleIcon className={classes.logo} /> Material UI</ListSubheader>}
-          className={classes.link}
-        >
-          <Link to="/" className={classes.link}>
-            <ListItem button>
-              <ListItemIcon className={classes.icon}>
-                <HomeIcon />
-              </ListItemIcon>
-              <ListItemText inset
-                primary={
-                  <FormattedMessage
-                    id='menus.home'
-                    defaultMessage='home'
-                  />
-                }
-              />
-            </ListItem>
-          </Link>
-          <Link to="/page1" className={classes.link}>
-            <ListItem button>
-              <ListItemIcon className={classes.icon}>
-                <SendIcon />
-              </ListItemIcon>
-              <ListItemText inset
-                primary={
-                  <FormattedMessage
-                    id='menus.page1'
-                    defaultMessage='Page1'
-                  />
-                }
-              />
-            </ListItem>
-          </Link>
-          <Link to="/page2" className={classes.link}>
-            <ListItem button>
-              <ListItemIcon className={classes.icon}>
-                <DraftsIcon />
-              </ListItemIcon>
-              <ListItemText inset
-                primary={
-                  <FormattedMessage
-                    id='menus.page2'
-                    defaultMessage='Page2'
-                  />
-                }
-              />
-            </ListItem>
-          </Link>
-          <ListItem button onClick={this.handleClick}>
-            <ListItemIcon className={classes.icon}>
-              <InboxIcon />
-            </ListItemIcon>
-            <ListItemText inset
-              primary={
-                <FormattedMessage
-                  id='menus.inbox'
-                  defaultMessage='InBox'
+        {/* <MuiThemeProvider theme={theme}> */}
+          <List
+            component="nav"
+            subheader={
+              <ListSubheader component="div" className={classes.title}>
+                <ViewModuleIcon className={classes.logo} /> Material UI
+              </ListSubheader>
+            }
+            className={classes.link}
+          >
+            <Link to="/" className={classes.link} color="primary">
+              <ListItem button>
+                <ListItemIcon className={classes.icon}>
+                  <HomeIcon />
+                </ListItemIcon>
+                <ListItemText inset
+                  primary={
+                    <FormattedMessage
+                      id='menus.home'
+                      defaultMessage='home'
+                    />
+                  }
                 />
-              }
-            />
-            {this.state.open ? <ExpandLess /> : <ExpandMore />}
-          </ListItem>
-          <Collapse in={this.state.open} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
-              <Link to="/404" className={classes.link}>
-                <ListItem button className={classes.nested}>
-                  <ListItemIcon className={classes.icon}>
-                    <StarBorder />
-                  </ListItemIcon>
-                  <ListItemText inset primary="404" />
-                </ListItem>
-              </Link>
-            </List>
-          </Collapse>
-        </List>
+              </ListItem>
+            </Link>
+            <Link to="/page1" className={classes.link}>
+              <ListItem button>
+                <ListItemIcon className={classes.icon}>
+                  <SendIcon />
+                </ListItemIcon>
+                <ListItemText inset
+                  primary={
+                    <FormattedMessage
+                      id='menus.page1'
+                      defaultMessage='Page1'
+                    />
+                  }
+                />
+              </ListItem>
+            </Link>
+            <Link to="/page2" className={classes.link}>
+              <ListItem button>
+                <ListItemIcon className={classes.icon}>
+                  <DraftsIcon />
+                </ListItemIcon>
+                <ListItemText inset
+                  primary={
+                    <FormattedMessage
+                      id='menus.page2'
+                      defaultMessage='Page2'
+                    />
+                  }
+                />
+              </ListItem>
+            </Link>
+            <ListItem button onClick={this.handleClick}>
+              <ListItemIcon className={classes.icon}>
+                <InboxIcon />
+              </ListItemIcon>
+              <ListItemText inset
+                primary={
+                  <FormattedMessage
+                    id='menus.inbox'
+                    defaultMessage='InBox'
+                  />
+                }
+              />
+              {this.state.open ? <ExpandLess /> : <ExpandMore />}
+            </ListItem>
+            <Collapse in={this.state.open} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                <Link to="/404" className={classes.link}>
+                  <ListItem button className={classes.nested}>
+                    <ListItemIcon className={classes.icon}>
+                      <StarBorder />
+                    </ListItemIcon>
+                    <ListItemText inset primary="404" />
+                  </ListItem>
+                </Link>
+              </List>
+            </Collapse>
+          </List>
+          {/* </MuiThemeProvider> */}
       </div>
+
     );
   }
 }
