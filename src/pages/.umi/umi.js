@@ -20,7 +20,12 @@ window.g_history = createHistory({
 
 // render
 function render() {
-  ReactDOM.render(React.createElement(require('./router').default), document.getElementById('root'));
+  const DvaContainer = require('./DvaContainer').default;
+ReactDOM.render(React.createElement(
+  DvaContainer,
+  null,
+  React.createElement(require('./router').default)
+), document.getElementById('root'));
 }
 render();
 

@@ -3,17 +3,21 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "scripts": {
+    "start": "umi dev",
+    "build": "umi build"
+  },
   "dependencies": {
     "@material-ui/core": "^1.1.0",
     "@material-ui/icons": "^1.1.0",
     "intl": "^1.2.5",
     "react-intl": "^2.4.0",
     "react-intl-universal": "^1.11.2",
-    "react-sidebar": "^2.3.2"
+    "react-sidebar": "^2.3.2",
+    "umi-plugin-dva": "^0.7.3"
   },
-  "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "devDependencies": {
+    "mockjs": "^1.0.1-beta3"
   },
   "author": "zchuhui",
   "license": "ISC"
