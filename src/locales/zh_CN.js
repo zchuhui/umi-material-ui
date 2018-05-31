@@ -3,6 +3,8 @@ const zh_CN = {
   superHello: "你好，{ someone } !",
 
   'menus.home': '主页',
+  'menus.users': '用户表',
+  'menus.universal': '国际化',
   'menus.page1': '页面 1',
   'menus.page2': '页面 2',
   'menus.page3': '页面 3',
