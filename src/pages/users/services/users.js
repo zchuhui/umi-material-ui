@@ -24,3 +24,7 @@ export function create(values) {
     body: JSON.stringify(values),
   });
 }
+
+export function search(payload) {
+  return request(`/api/search?q=${payload.q}`);
+}

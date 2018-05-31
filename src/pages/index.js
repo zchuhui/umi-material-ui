@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-
+import intl from 'react-intl-universal';
 
 class Index extends React.Component {
   state = {
@@ -9,14 +9,18 @@ class Index extends React.Component {
 
   render() {
     return (
-      <div>
+      <div>{/* 
         <FormattedMessage
           id='superHello'
           tagName='div'
           description='say hello to Howard.'
           defaultMessage='Hello, {someone}'
           values={{ 'someone': this.state.name }}
-        />
+        /> 
+        6 */}
+        {
+          intl.get('hello')
+        }
       </div>)
   }
 }

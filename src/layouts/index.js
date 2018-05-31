@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { IntlProvider } from 'react-intl';
+import intl from 'react-intl-universal';
 import Sidebar from 'react-sidebar';
 import { withStyles } from '@material-ui/core/styles';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
@@ -13,6 +14,11 @@ import Header from './Header'
  
 import zh_CN from '../locales/zh_CN'
 import en_US from '../locales/en_US'
+
+const locales = {
+  "en-US": en_US,
+  "zh-CN": zh_CN
+};
 
 const theme = createMuiTheme({
   palette: {
@@ -67,11 +73,28 @@ class Layout extends React.Component {
       open: props.open,
       sidebarTransitions: false,
       // 语言切换
+      initDone:false,
       translate: 'en',
     }
 
     this.mediaQueryChanged = this.mediaQueryChanged.bind(this);
   }
+
+  loadLocales = (lan) => {
+    const _this = this;
+    intl.init({
+      currentLocale: lan, // TODO: determine locale here
+      locales,
+    })
+      .then(() => {
+      _this.setState({ initDone: true });
+      });
+  }
+
+  componentDidMount(){
+    this.loadLocales('en-US');
+  }
+
 
   componentWillMount() {
     mql.addListener(this.mediaQueryChanged);
@@ -90,12 +113,13 @@ class Layout extends React.Component {
   render() {
 
     return (
+      this.state.initDone &&
       <MuiThemeProvider theme={theme}>
         <div className={style.root}>
           <IntlProvider
             locale={'en'}
             messages={this.state.translate === 'en' ? en_US : zh_CN}
-          >
+          > 
             <Sidebar
               sidebar={<MenuPage />}
               open={this.state.sidebarOpen}

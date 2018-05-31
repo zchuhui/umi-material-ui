@@ -24,7 +24,6 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import blue from '@material-ui/core/colors/blue';
 
 
-
 const theme = createMuiTheme({
   palette: {
     primary: { main: blue[500] }, // Purple and green play nicely together.
@@ -113,6 +112,21 @@ class NestedList extends React.Component {
                   <FormattedMessage
                     id='menus.users'
                     defaultMessage='Users'
+                  />
+                }
+              />
+            </ListItem>
+          </Link>
+          <Link to="/book" className={classes.link}>
+            <ListItem button>
+              <ListItemIcon className={classes.icon}>
+                <SendIcon />
+              </ListItemIcon>
+              <ListItemText inset
+                primary={
+                  <FormattedMessage
+                    id='menus.book'
+                    defaultMessage='Book'
                   />
                 }
               />
