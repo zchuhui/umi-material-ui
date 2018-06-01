@@ -20,16 +20,16 @@ import StarBorder from '@material-ui/icons/StarBorder';
 import HomeIcon from '@material-ui/icons/Home';
 import ViewModuleIcon from '@material-ui/icons/ViewModule';
 
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import blue from '@material-ui/core/colors/blue';
+//import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+//import blue from '@material-ui/core/colors/blue';
 
 
-const theme = createMuiTheme({
+/* const theme = createMuiTheme({
   palette: {
     primary: { main: blue[500] }, // Purple and green play nicely together.
     secondary: { main: '#11cb5f' }, // This is just green.A700 as hex.
   },
-});
+}); */
 
 const styles = theme => ({
   root: {

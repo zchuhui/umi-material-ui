@@ -1,8 +1,9 @@
-import { PAGE_SIZE } from '../constants';
+//import { PAGE_SIZE } from '../constants';
 import request from '../../../utils/request';
 
-export function fetch({ page = 1 }) {
-  return request(`/api/users`);
+export function fetch(params) {
+
+  return request(`/api/user?q=${params.q}`);
 }
 
 export function remove(id) {
@@ -25,6 +26,3 @@ export function create(values) {
   });
 }
 
-export function search(payload) {
-  return request(`/api/search?q=${payload.q}`);
-}

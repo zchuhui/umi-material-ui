@@ -1,5 +1,4 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
 import intl from 'react-intl-universal';
 
 class Index extends React.Component {

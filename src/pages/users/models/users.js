@@ -6,6 +6,7 @@ export default {
     list: [],
     total: null,
     page: null,
+    pageSize:null,
   },
   reducers: {
     save(state, { payload}) {
@@ -13,42 +14,28 @@ export default {
     },
   },
   effects: {
-    *fetch({ payload: { page = 1 } }, { call, put }) {
-      const { data, headers } = yield call(usersService.fetch, { page });
+    *fetch({ payload }, { call, put }) {
       
-      if (data.code == 200) {
-        const list = data.data.list;
+      const {data} = yield call(usersService.fetch,{...payload});
+      console.log('data',data);
+      
+      if (data && data.users) {
+        const { users, start,count,total} = data;
+        console.log(users,start);
         
         yield put({
           type: 'save',
           payload: {
-            list: list,
-            total: list.length,
-            page: 1
+            list: users,
+            total: total,
+            page: start,
+            pageSize:count,
           },
         });
       }
       
     },
 
-    *search({ payload }, { call, put }) {
-      const { data, headers } = yield call(usersService.search, { q:'hao ' });
-      console.log('book data',data);
-      
-      if (data.code == 200) {
-        /* const list = data.data.list;
-
-        yield put({
-          type: 'save',
-          payload: {
-            list: list,
-            total: list.length,
-            page: 1
-          },
-        }); */
-      }
-
-    }
 
   },
   subscriptions: {
