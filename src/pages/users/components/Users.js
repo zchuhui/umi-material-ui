@@ -21,61 +21,54 @@ class Users extends React.Component {
 
     this.state = {
       page: 0,
-      rowsPerPage: 5
+      rowsPerPage: 10
     }
+  }
+
+  componentWillMount(){
+    // init data
+    this.props.dispatch({
+      type: 'users/fetch',
+      payload: {
+        q: 'test'
+      }
+    })
   }
 
   render() {
 
-    const { dispatch, list, total, page, pageSize } = this.props;
-
-    const handleSearch = () => {
-      const q = document.getElementById('q').value;
-
-      dispatch({
-        type: 'users/fetch',
-        payload: {
-          q: q
-        }
-      })
-    }
-
-    const handleChangePage = (event, page) => {
-      this.setState({ page:page });
-    }
-
-    const handleChangeRowsPerPage = (event) => {
-      this.setState({ rowsPerPage: event.target.value });
-    }
-
-    let sliceData = list.slice(this.state.page * this.state.rowsPerPage, page * this.state.rowsPerPage + this.state.rowsPerPage);
-    console.log('sliceData', sliceData);
+    const { dispatch, list, total } = this.props;
+    const { page, rowsPerPage } = this.state
     
+    let sliceData = list.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
+
     return (
       <div>
         <Paper className={styles.searchContainer}>
           <Input
             id="q"
-            placeholder="豆瓣用户"
+            placeholder="search user"
+            defaultValue="test"
             className={styles.searchInput}
             inputProps={{
               'aria-label': 'Description',
             }}
           />
-          <Button variant="raised" color="primary" className={styles.searchBtn} onClick={handleSearch}>
+          <Button variant="raised" color="primary" className={styles.searchBtn} onClick={this.handleSearch}>
             搜索
           </Button>
         </Paper>
 
-        <Table key="table1">
+        <Table key="table1" className={styles.tableWrap}>
           <TableHead>
             <TableRow>
+              <TableCell>Index</TableCell>
               <TableCell>Name</TableCell>
-              <TableCell numeric>Address</TableCell>
-              <TableCell numeric>Date</TableCell>
-              <TableCell numeric>签名</TableCell>
-              <TableCell numeric>简洁</TableCell>
-              <TableCell numeric>链接</TableCell>
+              <TableCell>Address</TableCell>
+              <TableCell>Date</TableCell>
+              <TableCell>签名</TableCell>
+              <TableCell>简洁</TableCell>
+              <TableCell>链接</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -83,38 +76,72 @@ class Users extends React.Component {
               sliceData
                 .map((n, index) => {
                   return (
-                    <TableRow key={n.id}>
+                    <TableRow key={n.id} className={styles.tRow}>
+                      <TableCell component="th" scope="row">
+                        {index}
+                      </TableCell>
                       <TableCell component="th" scope="row">
                         {n.name}
                       </TableCell>
-                      <TableCell numeric>{n.loc_name}</TableCell>
-                      <TableCell numeric>{n.created}</TableCell>
-                      <TableCell numeric>{n.signature}</TableCell>
-                      <TableCell numeric>{n.desc}</TableCell>
-                      <TableCell numeric><a href={n.alt} target="_blank">豆瓣地址</a></TableCell>
+                      <TableCell>{n.loc_name}</TableCell>
+                      <TableCell>{n.created}</TableCell>
+                      <TableCell>{n.signature}</TableCell>
+                      <TableCell className={styles.tcellDesc}>
+                        <div>
+                          {n.desc}
+                        </div>
+                      </TableCell>
+                      <TableCell><a href={n.alt} target="_blank">豆瓣地址</a></TableCell>
                     </TableRow>
                   );
                 })
             }
           </TableBody>
-          <TableFooter>
-            <TableRow>
-              <TablePagination
-                colSpan={1}
-                count={total}
-                rowsPerPage={this.state.rowsPerPage}
-                page={page}
-                onChangePage={handleChangePage}
-                onChangeRowsPerPage={handleChangeRowsPerPage}
-              //ActionsComponent={TablePaginationActionsWrapped}
-              />
-            </TableRow>
-          </TableFooter>
+          {
+            total && total > 0 ?
+              <TableFooter>
+                <TableRow>
+                  <TablePagination
+                    count={list.length}
+                    rowsPerPage={this.state.rowsPerPage}
+                    page={page}
+                    onChangePage={this.handleChangePage}
+                    onChangeRowsPerPage={this.handleChangeRowsPerPage}
+                  />
+                </TableRow>
+              </TableFooter>
+              : null
+          }
+
         </Table>
       </div>
     )
   }
+
+  // 翻页
+  handleChangePage = (event, page) => {
+    this.setState({ page });
+  }
+
+  // 每页显示多少条
+  handleChangeRowsPerPage = (event) => {
+    this.setState({ rowsPerPage: event.target.value });
+  }
+
+  // 搜索
+  handleSearch = () => {
+    const q = document.getElementById('q').value;
+
+    this.props.dispatch({
+      type: 'users/fetch',
+      payload: {
+        q: q
+      }
+    })
+  }
+
 }
+
 
 function mapStateToProps(state) {
   const { list, total, page } = state.users;

@@ -17,7 +17,6 @@ export default {
     *fetch({ payload }, { call, put }) {
       
       const {data} = yield call(usersService.fetch,{...payload});
-      console.log('data',data);
       
       if (data && data.users) {
         const { users, start,count,total} = data;
@@ -41,10 +40,7 @@ export default {
   subscriptions: {
     setup({ dispatch, history }) {
       return history.listen(({ pathname, query }) => {
-        dispatch({ type: 'search',});
-        /* if (pathname === '/users') {
-          dispatch({ type: 'fetch', payload: query });
-        } */
+        
       });
     },
   },

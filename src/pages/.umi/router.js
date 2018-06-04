@@ -19,7 +19,7 @@ let routes = [
       {
         "path": "/404",
         "exact": true,
-        "component": () => React.createElement(require('C:/Users/Administrator/AppData/Local/Yarn/config/global/node_modules/umi-build-dev/lib/Compiling.js').default, { route: '/404' })
+        "component": require('../404.js').default
       },
       {
         "path": "/book",
@@ -34,17 +34,17 @@ let routes = [
       {
         "path": "/page1",
         "exact": true,
-        "component": () => React.createElement(require('C:/Users/Administrator/AppData/Local/Yarn/config/global/node_modules/umi-build-dev/lib/Compiling.js').default, { route: '/page1' })
+        "component": require('../page1.js').default
       },
       {
         "path": "/page2",
         "exact": true,
-        "component": () => React.createElement(require('C:/Users/Administrator/AppData/Local/Yarn/config/global/node_modules/umi-build-dev/lib/Compiling.js').default, { route: '/page2' })
+        "component": require('../page2.js').default
       },
       {
         "path": "/universal",
         "exact": true,
-        "component": () => React.createElement(require('C:/Users/Administrator/AppData/Local/Yarn/config/global/node_modules/umi-build-dev/lib/Compiling.js').default, { route: '/universal' })
+        "component": require('../universal.js').default
       },
       {
         "path": "/users",
