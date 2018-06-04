@@ -27,11 +27,12 @@ const theme = createMuiTheme({
   },
 });
 
-
 // root styles
 const style = (theme) => ({
   root: {
     flexGrow: 1,
+    background:'#ddd',
+    color:'red'
   },
   paper: {
     padding: theme.spacing.unit * 2,
@@ -95,7 +96,6 @@ class Layout extends React.Component {
     this.loadLocales('en-US');
   }
 
-
   componentWillMount() {
     mql.addListener(this.mediaQueryChanged);
     this.setState({ mql: mql, sidebarDocked: mql.matches });
@@ -115,7 +115,7 @@ class Layout extends React.Component {
     return (
       this.state.initDone &&
       <MuiThemeProvider theme={theme}>
-        <div className={style.root}>
+        <div>
           <IntlProvider
             locale={'en'}
             messages={this.state.translate === 'en' ? en_US : zh_CN}
@@ -128,8 +128,8 @@ class Layout extends React.Component {
               transitions={this.state.sidebarTransitions}
               styles={sidebarStyles}
             >
-              <div className={styles.layoutContainer}>
-
+              <div className={styles.layoutContainer} style={{ background: '#eee',height:'100%' }}>
+              
                 {/* Header */}
                 <Header
                   title="Title"
