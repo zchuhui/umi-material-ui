@@ -19,7 +19,7 @@ let routes = [
       {
         "path": "/404",
         "exact": true,
-        "component": () => React.createElement(require('C:/Users/Administrator/AppData/Local/Yarn/config/global/node_modules/umi-build-dev/lib/Compiling.js').default, { route: '/404' })
+        "component": require('../404.js').default
       },
       {
         "path": "/book",
@@ -27,9 +27,14 @@ let routes = [
         "component": require('../book/page.js').default
       },
       {
+        "path": "/index/components/Chart-polyline",
+        "exact": true,
+        "component": require('../index/components/Chart-polyline.js').default
+      },
+      {
         "path": "/index/components/Grid",
         "exact": true,
-        "component": () => React.createElement(require('C:/Users/Administrator/AppData/Local/Yarn/config/global/node_modules/umi-build-dev/lib/Compiling.js').default, { route: '/index/components/Grid' })
+        "component": require('../index/components/Grid.js').default
       },
       {
         "path": "/",
@@ -57,7 +62,7 @@ let routes = [
         "component": require('../users/page.js').default
       },
       {
-        "component": () => React.createElement(require('C:/Users/Administrator/AppData/Local/Yarn/config/global/node_modules/umi-build-dev/lib/plugins/404/NotFound.js').default, { pagesPath: 'src/pages', routes: '[{"path":"/","component":"./src\\\\layouts\\\\index.js","routes":[{"path":"/404","exact":true,"component":"./src\\\\pages\\\\404.js"},{"path":"/book","exact":true,"component":"./src\\\\pages\\\\book\\\\page.js"},{"path":"/index/components/Grid","exact":true,"component":"./src\\\\pages\\\\index\\\\components\\\\Grid.js"},{"path":"/","exact":true,"component":"./src\\\\pages\\\\index\\\\index.js"},{"path":"/page1","exact":true,"component":"./src\\\\pages\\\\page1.js"},{"path":"/page2","exact":true,"component":"./src\\\\pages\\\\page2.js"},{"path":"/universal","exact":true,"component":"./src\\\\pages\\\\universal.js"},{"path":"/users","exact":true,"component":"./src\\\\pages\\\\users\\\\page.js"}]}]' })
+        "component": () => React.createElement(require('C:/Program Files/nodejs/node_modules/umi/node_modules/_umi-build-dev@0.19.0@umi-build-dev/lib/plugins/404/NotFound.js').default, { pagesPath: 'src/pages', routes: '[{"path":"/","component":"./src\\\\layouts\\\\index.js","routes":[{"path":"/404","exact":true,"component":"./src/pages/404.js"},{"path":"/book","exact":true,"component":"./src/pages/book/page.js"},{"path":"/index/components/Chart-polyline","exact":true,"component":"./src/pages/index/components/Chart-polyline.js"},{"path":"/index/components/Grid","exact":true,"component":"./src/pages/index/components/Grid.js"},{"path":"/","exact":true,"component":"./src/pages/index/index.js"},{"path":"/page1","exact":true,"component":"./src/pages/page1.js"},{"path":"/page2","exact":true,"component":"./src/pages/page2.js"},{"path":"/universal","exact":true,"component":"./src/pages/universal.js"},{"path":"/users","exact":true,"component":"./src/pages/users/page.js"}]}]' })
       }
     ]
   }

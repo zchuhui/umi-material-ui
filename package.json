@@ -8,6 +8,7 @@
     "build": "umi build"
   },
   "dependencies": {
+    "@antv/g2": "^3.1.2",
     "@material-ui/core": "^1.1.0",
     "@material-ui/icons": "^1.1.0",
     "intl": "^1.2.5",
