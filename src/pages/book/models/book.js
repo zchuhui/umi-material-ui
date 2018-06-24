@@ -16,7 +16,6 @@ export default {
 
     *search({ payload }, { call, put }) {
       const { data } = yield call(usersService.search, { ...payload });
-      console.log('book data',data);
       
       if (data && data.books) {
         yield put({

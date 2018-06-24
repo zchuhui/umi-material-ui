@@ -25,7 +25,7 @@ class Users extends React.Component {
     }
   }
 
-  componentWillMount(){
+  componentDidMount(){
     // init data
     this.props.dispatch({
       type: 'users/fetch',

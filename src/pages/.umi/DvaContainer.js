@@ -10,8 +10,9 @@ let app = dva({
 window.g_app = app;
 app.use(createLoading());
 
-app.model({ ...(require('D:/works/my/umi-demo/umi-material-ui/src/pages/book/models/book.js').default) });
-app.model({ ...(require('D:/works/my/umi-demo/umi-material-ui/src/pages/users/models/users.js').default) });
+app.model({ ...(require('G:/mycode/umi-material-ui/src/pages/index/models/index.js').default) });
+app.model({ ...(require('G:/mycode/umi-material-ui/src/pages/book/models/book.js').default) });
+app.model({ ...(require('G:/mycode/umi-material-ui/src/pages/users/models/users.js').default) });
 
 class DvaContainer extends Component {
   render() {
